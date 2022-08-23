@@ -48,7 +48,7 @@ public class Main {
     }
     private static void handleSnake(Position[] snake, KeyStroke keyStroke, Terminal terminal) throws Exception {
         Position head = new Position(snake[0].x, snake[0].y);
-        Position tail = new Position (snake[2].x, snake[2].y);
+        Position tail = new Position(snake[2].x, snake[2].y); //denna ändras hela tiden så funkar bara första
 
         switch (keyStroke.getKeyType()) {
             case ArrowDown:
