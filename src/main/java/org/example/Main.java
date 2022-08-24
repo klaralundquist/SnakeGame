@@ -15,6 +15,34 @@ public class Main {
         Terminal terminal = terminalFactory.createTerminal();
         terminal.setCursorVisible(false);
 
+        Position player = new Position(13,13);
+        terminal.setCursorPosition(player.x, player.y);
+
+
+        final char block = '\u2588';
+
+        List<Position> obsticles = new ArrayList<>();
+
+        for(int i = 0;i<10;i++){
+            obsticles.add(new Position(10+i, 10));
+        }
+        for(int i = 5;i<10;i++){
+            obsticles.add(new Position(5, 10+i));
+        }
+        for(int i = 0;i<20;i++){
+            obsticles.add(new Position(5+i, 20));
+        }
+
+        for (Position p : obsticles) {
+            terminal.setCursorPosition(p.x, p.y);
+            terminal.putCharacter(block);
+        }
+
+        terminal.flush();
+
+
+
+
         Snake s = new Snake();
         List<Position> snake = s.getBody(terminal); //get snake printed
 
@@ -36,7 +64,7 @@ public class Main {
                 index++;
                 if (index % 100 == 0) {
                     if (latestKeyStroke != null) {
-                        handleSnake(snake, latestKeyStroke, terminal);
+                        handleSnake(snake, latestKeyStroke, terminal,obsticles);
                     }
                 }
 
@@ -50,10 +78,11 @@ public class Main {
 
         }
     }
-    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal) throws Exception {
+    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal,List<Position>obsticles) throws Exception {
         Position head = new Position(snake.get(0).x, snake.get(0).y);
         Position tail = new Position(snake.get(snake.size()-1).x, snake.get(snake.size()-1).y);
         snake.add(0, head);
+        Position oldPosition = new Position(snake.get(0).x, snake.get(0).y);
 
         switch (keyStroke.getKeyType()) {
             case ArrowDown:
@@ -69,6 +98,30 @@ public class Main {
                 snake.get(0).x -= 1;
                 break;
         }
+
+
+        boolean crashIntoObsticle = false;
+        for (Position p : obsticles) {
+            if (p.x == snake.get(0).x && p.y == snake.get(0).y) {
+                crashIntoObsticle = true;
+            }
+        }
+
+        if (crashIntoObsticle) {
+            terminal.close();
+            snake.get(0).x = oldPosition.x;
+            snake.get(0).y = oldPosition.y;
+        }
+
+        else {
+            terminal.setCursorPosition(oldPosition.x, oldPosition.y);
+            terminal.putCharacter(' ');
+            terminal.setCursorPosition(snake.get(0).x, snake.get(0).y);
+            terminal.putCharacter('\u263a');
+        }
+
+        terminal.flush();
+
 
         //Draw snake:
 
