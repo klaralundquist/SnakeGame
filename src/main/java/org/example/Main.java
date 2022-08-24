@@ -1,19 +1,17 @@
 package org.example;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         Terminal terminal = terminalFactory.createTerminal();
-        terminal.setCursorVisible(false);
+        terminal.setCursorVisible(true);
 
         Snake s = new Snake();
         List<Position> snake = s.getBody(terminal); //get snake printed
@@ -40,7 +38,7 @@ public class Main {
                     }
                 }
 
-                Thread.sleep(5);
+                Thread.sleep(3);
                 keyStroke = terminal.pollInput();
 
 
@@ -69,17 +67,37 @@ public class Main {
                 snake.get(0).x -= 1;
                 break;
         }
+        //Random
 
-        //Draw snake:
+        Random r = new Random();
+        Position fruitPosition = new Position(r.nextInt(80), r.nextInt(24));
+        terminal.setCursorPosition(fruitPosition.x,fruitPosition.y);
+        terminal.putCharacter('O');
+//Lägga till arrey list, loopar mot alla frukter
 
-        terminal.setCursorPosition(tail.x, tail.y);
-        terminal.putCharacter(' ');
-        snake.remove(snake.get(snake.size()-1));
+        if(head.x == fruitPosition.x && head.y == fruitPosition.y){
+            terminal.setCursorPosition(tail.x, tail.y);
+            terminal.putCharacter('X');
+            snake.add(snake.get(snake.size()-1));
+        }
+
+
+        else {
+
+            //Draw snake:
+
+            terminal.setCursorPosition(tail.x, tail.y);
+            terminal.putCharacter(' ');
+            snake.remove(snake.get(snake.size() - 1));
+        }
 
         terminal.setCursorPosition(head.x, head.y);
         terminal.putCharacter('X');
 
         terminal.flush();
+
+
+
 
     }
 }
