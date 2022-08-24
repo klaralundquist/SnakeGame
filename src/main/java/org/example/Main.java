@@ -4,6 +4,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -15,9 +16,9 @@ public class Main {
         Snake s = new Snake();
         List<Position> snake = s.getBody(terminal); //get snake printed
 
-        Position food = new Position(25, 25); // added food
-        terminal.setCursorPosition(food.x, food.y);
-        terminal.putCharacter('O');
+        Fruit f = new Fruit();
+        List<Position> fruit = f.getFruits(terminal); // added fruits
+
 
         DescriptionText start = new DescriptionText("SNAKE GAME", "GAME OVER");
         start.startText(start.start, terminal); // created text
@@ -33,7 +34,7 @@ public class Main {
                 index++;
                 if (index % 100 == 0) {
                     if (latestKeyStroke != null) {
-                        handleSnake(snake, latestKeyStroke, terminal, start);
+                        handleSnake(snake, latestKeyStroke, terminal, start, fruit);
                     }
                 }
 
@@ -48,7 +49,7 @@ public class Main {
         }
     }
 
-    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal, DescriptionText start) throws Exception {
+    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal, DescriptionText start, List <Position> fruit) throws Exception {
         Position head = new Position(snake.get(0).x, snake.get(0).y);
         Position tail = new Position(snake.get(snake.size() - 1).x, snake.get(snake.size() - 1).y);
         snake.add(0, head);
@@ -60,7 +61,13 @@ public class Main {
             case ArrowLeft -> snake.get(0).x -= 1;
         }
 
-        //Draw snake:
+        for (Position p : fruit) {
+            if (p.x == head.x && p.y == head.y) {
+                terminal.setCursorPosition(tail.x, tail.y);
+                terminal.putCharacter('X');
+                snake.add(tail);
+            }
+        }
 
         terminal.setCursorPosition(tail.x, tail.y);
         terminal.putCharacter(' ');
