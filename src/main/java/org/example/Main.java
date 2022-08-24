@@ -36,7 +36,7 @@ public class Main {
                 index++;
                 if (index % 100 == 0) {
                     if (latestKeyStroke != null) {
-                        handleSnake(snake, latestKeyStroke, terminal);
+                        handleSnake(snake, latestKeyStroke, terminal, start);
                     }
                 }
 
@@ -50,9 +50,9 @@ public class Main {
 
         }
     }
-    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal) throws Exception {
+    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal, DescriptionText start) throws Exception {
         Position head = new Position(snake.get(0).x, snake.get(0).y);
-        Position tail = new Position(snake.get(snake.size()-1).x, snake.get(snake.size()-1).y);
+        Position tail = new Position(snake.get(snake.size() - 1).x, snake.get(snake.size() - 1).y);
         snake.add(0, head);
 
         switch (keyStroke.getKeyType()) {
@@ -74,12 +74,26 @@ public class Main {
 
         terminal.setCursorPosition(tail.x, tail.y);
         terminal.putCharacter(' ');
-        snake.remove(snake.get(snake.size()-1));
+        snake.remove(snake.get(snake.size() - 1));
 
         terminal.setCursorPosition(head.x, head.y);
         terminal.putCharacter('X');
 
         terminal.flush();
 
+        boolean crashIntoSnake = false;
+
+        for (int i = 0; i < snake.size(); i++) {
+            if (i > 0) {
+                if (snake.get(0).x == snake.get(i).x && snake.get(0).y == snake.get(i).y) {
+                    crashIntoSnake = true;
+                }
+            }
+        }
+        if (crashIntoSnake) {
+            terminal.clearScreen();
+            start.gameOverText(start.getGameOver(), terminal);
+            terminal.flush();
+        }
     }
 }
