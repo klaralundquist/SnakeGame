@@ -1,12 +1,9 @@
 package org.example;
 
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
@@ -50,24 +47,17 @@ public class Main {
 
         }
     }
+
     private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal, DescriptionText start) throws Exception {
         Position head = new Position(snake.get(0).x, snake.get(0).y);
         Position tail = new Position(snake.get(snake.size() - 1).x, snake.get(snake.size() - 1).y);
         snake.add(0, head);
 
         switch (keyStroke.getKeyType()) {
-            case ArrowDown:
-                snake.get(0).y += 1;
-                break;
-            case ArrowUp:
-                snake.get(0).y -= 1;
-                break;
-            case ArrowRight:
-                snake.get(0).x += 1;
-                break;
-            case ArrowLeft:
-                snake.get(0).x -= 1;
-                break;
+            case ArrowDown -> snake.get(0).y += 1;
+            case ArrowUp -> snake.get(0).y -= 1;
+            case ArrowRight -> snake.get(0).x += 1;
+            case ArrowLeft -> snake.get(0).x -= 1;
         }
 
         //Draw snake:
@@ -93,6 +83,7 @@ public class Main {
         if (crashIntoSnake) {
             terminal.clearScreen();
             start.gameOverText(start.getGameOver(), terminal);
+            keyStroke.wait();
             terminal.flush();
         }
     }
