@@ -5,6 +5,10 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
@@ -12,7 +16,7 @@ public class Main {
         terminal.setCursorVisible(false);
 
         Snake s = new Snake();
-        Position[] snake = s.getBody(terminal); //get snake printed
+        List<Position> snake = s.getBody(terminal); //get snake printed
 
         Position food = new Position(25, 25); // added food
         terminal.setCursorPosition(food.x, food.y);
@@ -46,22 +50,23 @@ public class Main {
 
         }
     }
-    private static void handleSnake(Position[] snake, KeyStroke keyStroke, Terminal terminal) throws Exception {
-        Position head = new Position(snake[0].x, snake[0].y);
-        Position tail = new Position(snake[2].x, snake[2].y); //denna ändras hela tiden så funkar bara första
+    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal) throws Exception {
+        Position head = new Position(snake.get(0).x, snake.get(0).y);
+        Position tail = new Position(snake.get(snake.size()-1).x, snake.get(snake.size()-1).y);
+        snake.add(0, head);
 
         switch (keyStroke.getKeyType()) {
             case ArrowDown:
-                snake[0].y += 1;
+                snake.get(0).y += 1;
                 break;
             case ArrowUp:
-                snake[0].y -= 1;
+                snake.get(0).y -= 1;
                 break;
             case ArrowRight:
-                snake[0].x += 1;
+                snake.get(0).x += 1;
                 break;
             case ArrowLeft:
-                snake[0].x -= 1;
+                snake.get(0).x -= 1;
                 break;
         }
 
@@ -69,10 +74,12 @@ public class Main {
 
         terminal.setCursorPosition(tail.x, tail.y);
         terminal.putCharacter(' ');
+        snake.remove(snake.get(snake.size()-1));
 
         terminal.setCursorPosition(head.x, head.y);
         terminal.putCharacter('X');
 
         terminal.flush();
+
     }
 }
