@@ -6,6 +6,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -61,13 +62,18 @@ public class Main {
             case ArrowLeft -> snake.get(0).x -= 1;
         }
 
+        List<Position> toRemove = new ArrayList<>(); //array för att ta bort frukt som äts
+
         for (Position p : fruit) {
             if (p.x == head.x && p.y == head.y) {
                 terminal.setCursorPosition(tail.x, tail.y);
                 terminal.putCharacter('X');
                 snake.add(tail);
+
+                toRemove.add(p);
             }
         }
+        fruit.removeAll(toRemove); //tar bort frukt
 
         terminal.setCursorPosition(tail.x, tail.y);
         terminal.putCharacter(' ');
