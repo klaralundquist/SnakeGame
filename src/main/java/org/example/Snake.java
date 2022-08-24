@@ -9,7 +9,7 @@ public class Snake {
 
     public List<Position> getBody(Terminal terminal) throws IOException {
         List<Position> snake = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < 10; i++) {
             snake.add(new Position(10, 10+i));
         }
         for (Position p : snake) {
