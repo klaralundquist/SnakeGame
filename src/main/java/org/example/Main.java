@@ -75,10 +75,13 @@ public class Main {
         }
         fruit.removeAll(toRemove); //tar bort frukt
 
+        //skapar ny frukt när snake äter en på random ställe:
+
         if (fruit.size() < 4) {
-            fruit.add(new Position(15, 15));
+            Random r = new Random();
+            fruit.add(new Position(r.nextInt(20),r.nextInt(24)));
             for (Position p : fruit) {
-                terminal.setCursorPosition(p.x, p.y); //put this random for new fruits
+                terminal.setCursorPosition(p.x, p.y);
                 terminal.putCharacter('F');
             }
         }
