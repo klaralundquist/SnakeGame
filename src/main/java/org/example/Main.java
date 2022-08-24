@@ -17,20 +17,19 @@ public class Main {
 
         Position player = new Position(13,13);
         terminal.setCursorPosition(player.x, player.y);
-
+        terminal.putCharacter('\u263a');
 
         final char block = '\u2588';
 
         List<Position> obsticles = new ArrayList<>();
 
-        for(int i = 0;i<10;i++){
-            obsticles.add(new Position(10+i, 10));
+
+        for(int i = 0;i<100;i++){
+            obsticles.add(new Position(100, 0+i));
         }
-        for(int i = 5;i<10;i++){
-            obsticles.add(new Position(5, 10+i));
-        }
-        for(int i = 0;i<20;i++){
-            obsticles.add(new Position(5+i, 20));
+
+        for(int i = 0;i<100;i++){
+            obsticles.add(new Position(0+i, 100));
         }
 
         for (Position p : obsticles) {
@@ -78,11 +77,11 @@ public class Main {
 
         }
     }
-    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal,List<Position>obsticles) throws Exception {
+    private static void handleSnake(List<Position> snake, KeyStroke keyStroke, Terminal terminal,List<Position> obsticles) throws Exception {
         Position head = new Position(snake.get(0).x, snake.get(0).y);
         Position tail = new Position(snake.get(snake.size()-1).x, snake.get(snake.size()-1).y);
         snake.add(0, head);
-        Position oldPosition = new Position(snake.get(0).x, snake.get(0).y);
+
 
         switch (keyStroke.getKeyType()) {
             case ArrowDown:
@@ -109,12 +108,11 @@ public class Main {
 
         if (crashIntoObsticle) {
             terminal.close();
-            snake.get(0).x = oldPosition.x;
-            snake.get(0).y = oldPosition.y;
+
         }
 
         else {
-            terminal.setCursorPosition(oldPosition.x, oldPosition.y);
+            terminal.setCursorPosition(snake.get(0).x, snake.get(0).y);
             terminal.putCharacter(' ');
             terminal.setCursorPosition(snake.get(0).x, snake.get(0).y);
             terminal.putCharacter('\u263a');
