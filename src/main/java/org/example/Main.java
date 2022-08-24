@@ -75,6 +75,14 @@ public class Main {
         }
         fruit.removeAll(toRemove); //tar bort frukt
 
+        if (fruit.size() < 4) {
+            fruit.add(new Position(15, 15));
+            for (Position p : fruit) {
+                terminal.setCursorPosition(p.x, p.y); //put this random for new fruits
+                terminal.putCharacter('F');
+            }
+        }
+
         terminal.setCursorPosition(tail.x, tail.y);
         terminal.putCharacter(' ');
         snake.remove(snake.get(snake.size() - 1));
