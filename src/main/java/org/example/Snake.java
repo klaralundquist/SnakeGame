@@ -14,7 +14,7 @@ public class Snake {
         }
         for (Position p : snake) {
             terminal.setCursorPosition(p.x, p.y);
-            terminal.putCharacter('X');
+            terminal.putCharacter('Ϩ');
         }
         return snake;
     }
