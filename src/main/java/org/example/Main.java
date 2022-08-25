@@ -33,13 +33,13 @@ public class Main {
             KeyStroke keyStroke = null;
             do {
                 index++;
-                if (index % 100 == 0) {
+                if (index % 60 == 0) {
                     if (latestKeyStroke != null) {
                         handleSnake(snake, latestKeyStroke, terminal, start, fruit);
                     }
                 }
 
-                Thread.sleep(5); //om jag ändrar på denna funkar ej ormen - blir ej längre
+                Thread.sleep(3);
                 keyStroke = terminal.pollInput();
 
 
@@ -79,7 +79,7 @@ public class Main {
 
         if (fruit.size() < 4) {
             Random r = new Random();
-            fruit.add(new Position(r.nextInt(80),r.nextInt(80)));
+            fruit.add(new Position(r.nextInt(50),r.nextInt(25)));
             for (Position p : fruit) {
                 terminal.setCursorPosition(p.x, p.y);
                 terminal.putCharacter('F');
