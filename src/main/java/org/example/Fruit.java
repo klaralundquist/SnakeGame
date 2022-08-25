@@ -5,15 +5,16 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Fruit {
 
     public List<Position> getFruits(Terminal terminal) throws IOException {
         List<Position> fruits = new ArrayList<>();
-        fruits.add(new Position(20, 5));
-        fruits.add(new Position(5, 5));
-        fruits.add(new Position(10, 5));
-        fruits.add(new Position(30, 5));
+        Random r = new Random();
+        for (int i = 0; i < 4; i ++) {
+            fruits.add(new Position(r.nextInt(80),r.nextInt(80)));
+        }
 
         for (Position p : fruits) {
             terminal.setCursorPosition(p.x, p.y);
