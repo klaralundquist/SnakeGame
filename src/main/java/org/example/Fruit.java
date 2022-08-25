@@ -12,9 +12,10 @@ public class Fruit {
     public List<Position> getFruits(Terminal terminal) throws IOException {
         List<Position> fruits = new ArrayList<>();
         Random r = new Random();
-        for (int i = 0; i < 4; i ++) {
-            fruits.add(new Position(r.nextInt(80),r.nextInt(80)));
-        }
+        fruits.add(new Position(r.nextInt(50),r.nextInt(25)));
+        fruits.add(new Position(r.nextInt(50),r.nextInt(25)));
+        fruits.add(new Position(r.nextInt(50),r.nextInt(25)));
+        fruits.add(new Position(r.nextInt(50),r.nextInt(25)));
 
         for (Position p : fruits) {
             terminal.setCursorPosition(p.x, p.y);
