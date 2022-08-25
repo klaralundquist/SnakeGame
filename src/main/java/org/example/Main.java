@@ -77,12 +77,12 @@ public class Main {
 
         //skapar ny frukt när snake äter en på random ställe:
 
-        if (fruit.size() < 4) {
+        if (fruit.size() < 8) {
             Random r = new Random();
             fruit.add(new Position(r.nextInt(50),r.nextInt(25)));
             for (Position p : fruit) {
                 terminal.setCursorPosition(p.x, p.y);
-                terminal.putCharacter('F');
+                terminal.putCharacter('Ѽ');
             }
         }
 
@@ -91,7 +91,7 @@ public class Main {
         snake.remove(snake.get(snake.size() - 1));
 
         terminal.setCursorPosition(head.x, head.y);
-        terminal.putCharacter('X');
+        terminal.putCharacter('Ƨ');
 
         terminal.flush();
 
