@@ -39,7 +39,7 @@ public class Main {
                     }
                 }
 
-                Thread.sleep(5);
+                Thread.sleep(5); //om jag ändrar på denna funkar ej ormen - blir ej längre
                 keyStroke = terminal.pollInput();
 
 
@@ -79,7 +79,7 @@ public class Main {
 
         if (fruit.size() < 4) {
             Random r = new Random();
-            fruit.add(new Position(r.nextInt(20),r.nextInt(24)));
+            fruit.add(new Position(r.nextInt(80),r.nextInt(80)));
             for (Position p : fruit) {
                 terminal.setCursorPosition(p.x, p.y);
                 terminal.putCharacter('F');
