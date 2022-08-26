@@ -32,7 +32,7 @@ public class Snake {
             case ArrowLeft -> snake.get(0).x -= 1;
         }
 
-        String size = String.valueOf(snake.size()-3);
+        String size = String.valueOf(snake.size()-4);
         for (int i = 0; i < size.length(); i++) {
             terminal.setCursorPosition(62 + i, 1);
             terminal.putCharacter(' ');
