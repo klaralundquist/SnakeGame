@@ -22,14 +22,14 @@ public class DescriptionText {
 
     public void gameOverText(String string, Terminal terminal) throws IOException {
         for (int i = 0; i < string.length(); i++) {
-            terminal.setCursorPosition(30+i, 15);
+            terminal.setCursorPosition(35+i, 12);
             terminal.putCharacter(string.charAt(i));
         }
         terminal.flush();
     }
     public void startText(String string, Terminal terminal) throws IOException {
         for (int i = 0; i < string.length(); i++) {
-            terminal.setCursorPosition(0+i, 0);
+            terminal.setCursorPosition(1+i, 1);
             terminal.putCharacter(string.charAt(i));
         }
         terminal.flush();
