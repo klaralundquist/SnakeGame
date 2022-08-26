@@ -1,4 +1,5 @@
 package org.example;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class Snake {
         }
         for (Position p : snake) {
             terminal.setCursorPosition(p.x, p.y);
+            terminal.setForegroundColor(TextColor.ANSI.WHITE);
             terminal.putCharacter('Ϩ');
         }
         return snake;
@@ -52,7 +54,7 @@ public class Snake {
             terminal.putCharacter(':');
             terminal.setCursorPosition(70 + i, 1);
             terminal.setCursorPosition(71 + i, 1);
-
+            terminal.setForegroundColor(TextColor.ANSI.WHITE);
             terminal.putCharacter(size.charAt(i));
         }
 
@@ -91,6 +93,7 @@ public class Snake {
                 for (Position s : snake) { //för att frukten inte ska hamna i ormen, funkar ej?
                     if (p.x != s.x && p.y != s.y) {
                         terminal.setCursorPosition(p.x, p.y);
+                        terminal.setForegroundColor(TextColor.ANSI.RED);
                         terminal.putCharacter('Ѽ');
                     }
                 }

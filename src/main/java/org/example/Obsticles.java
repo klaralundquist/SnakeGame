@@ -1,5 +1,6 @@
 package org.example;
 
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class Obsticles {
         for (Position p : obsticles) {
             terminal.setCursorPosition(p.x, p.y);
             terminal.putCharacter(block);
+            terminal.setForegroundColor(TextColor.ANSI.BLUE);
         }
 
         terminal.flush();

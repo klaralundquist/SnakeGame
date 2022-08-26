@@ -1,5 +1,6 @@
 package org.example;
 
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -23,6 +24,7 @@ public class DescriptionText {
     public void gameOverText(String string, Terminal terminal) throws IOException {
         for (int i = 0; i < string.length(); i++) {
             terminal.setCursorPosition(35+i, 12);
+            terminal.setForegroundColor(TextColor.ANSI.WHITE);
             terminal.putCharacter(string.charAt(i));
         }
         terminal.flush();
@@ -30,6 +32,7 @@ public class DescriptionText {
     public void startText(String string, Terminal terminal) throws IOException {
         for (int i = 0; i < string.length(); i++) {
             terminal.setCursorPosition(1+i, 1);
+            terminal.setForegroundColor(TextColor.ANSI.WHITE);
             terminal.putCharacter(string.charAt(i));
         }
         terminal.flush();
