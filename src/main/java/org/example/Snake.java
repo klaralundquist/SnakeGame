@@ -12,6 +12,7 @@ public class Snake {
         for (int i = 0; i < size; i++) {
             snake.add(new Position(10, 10+i));
         }
+
         for (Position p : snake) {
             terminal.setCursorPosition(p.x, p.y);
             terminal.putCharacter('Ϩ');

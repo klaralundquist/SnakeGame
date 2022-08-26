@@ -15,32 +15,9 @@ public class Main {
         terminal.setCursorVisible(false);
 
 
-        final char block = '\u2588';
+       Obsticles o = new Obsticles();
+       List<Position>obsticles =o.getob(terminal);
 
-        List<Position> obsticles = new ArrayList<>();
-
-
-        for(int i = 0;i<100;i++){
-            obsticles.add(new Position(-100, 0+i));
-        }
-
-        for(int i = 0;i<100;i++){
-            obsticles.add(new Position(0+i, -100));
-        }
-        for(int i = 0;i<100;i++){
-            obsticles.add(new Position(100, 0+i));
-        }
-
-        for(int i = 0;i<100;i++){
-            obsticles.add(new Position(0+i, 100));
-        }
-
-        for (Position p : obsticles) {
-            terminal.setCursorPosition(p.x, p.y);
-            terminal.putCharacter(block);
-        }
-
-        terminal.flush();
 
 
 
@@ -95,8 +72,9 @@ public class Main {
 
         boolean crashIntoObsticle = false;
         for (Position p : obsticles) {
-            if (p.x == snake.get(0).x && p.y == snake.get(0).y) {
+            if ((p.x == snake.get(0).x) && (p.y == snake.get(0).y)) {
                 crashIntoObsticle = true;
+
             }
         }
 
